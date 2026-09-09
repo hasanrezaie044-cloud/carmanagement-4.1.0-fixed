@@ -88,7 +88,7 @@ jobs:
       - name: Decode release keystore
         id: keystore
         env:
-          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
           mkdir -p "$RUNNER_TEMP/keystore"
           if [[ -n "$KEYSTORE_BASE64" ]]; then
@@ -104,9 +104,9 @@ jobs:
         working-directory: android
         env:
           ANDROID_KEYSTORE_PATH: ${{ steps.keystore.outputs.path }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Build release AAB
@@ -114,9 +114,9 @@ jobs:
         working-directory: android
         env:
           ANDROID_KEYSTORE_PATH: ${{ steps.keystore.outputs.path }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew bundleRelease --stacktrace
 
       # This is the guarantee, not a hope: the audit reads the MERGED manifest out
