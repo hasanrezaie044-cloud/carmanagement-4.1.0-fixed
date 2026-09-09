@@ -10,6 +10,11 @@ OUT_DIR="${1:-android/app/build/outputs/apk/release}"
 ALLOWED=(
   "android.permission.POST_NOTIFICATIONS"
   "android.permission.USE_BIOMETRIC"
+  "android.permission.ACCESS_NETWORK_STATE"
+  "android.permission.FOREGROUND_SERVICE"
+  "android.permission.RECEIVE_BOOT_COMPLETED"
+  "android.permission.USE_FINGERPRINT"
+  "android.permission.WAKE_LOCK"
 )
 
 # Explicitly banned; presence of any of these is a hard failure.
