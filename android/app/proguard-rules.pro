@@ -4,7 +4,7 @@
 # kotlinx.serialization
 -keepattributes *Annotation*, InnerClasses
 -dontnote kotlinx.serialization.**
--keepclassmembers class com.khodroyar.app.data.legacy.** { *; }
+-keepclassmembers class com.carmangment.app.data.legacy.** { *; }
 -keepclassmembers @kotlinx.serialization.Serializable class ** {
     static <1>$Companion Companion;
     *** Companion;
@@ -13,7 +13,7 @@
 -keepclasseswithmembers class ** { kotlinx.serialization.KSerializer serializer(...); }
 
 # WorkManager instantiates workers reflectively; keep our reminder worker intact.
--keep class com.khodroyar.app.notifications.** { *; }
+-keep class com.carmangment.app.notifications.** { *; }
 -keep class * extends androidx.work.ListenableWorker { <init>(...); }
 # Annotation-only artifacts pulled in for R8 (jsr305 / error_prone).
 -dontwarn javax.annotation.**

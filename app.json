@@ -5,8 +5,8 @@
     "owner": "hasanrezaie",
     "version": "4.1.0",
     "android": {
-      "package": "com.khodroyar.app",
-      "versionCode": 23,
+      "package": "com.carmangment.app",
+      "versionCode": 22,
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

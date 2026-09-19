@@ -5,7 +5,7 @@ Built entirely in the cloud — no Android Studio required.
 
 ```
 android/          native Gradle project (Kotlin, Room, Compose)
-  app/src/main/java/com/khodroyar/app/
+  app/src/main/java/com/carmangment/app/
     core/         calendar, holidays, rate brackets, income, loans, analytics
     data/         Room entities/DAOs, repository, legacy backup importer
     export/       dependency-free XLSX writer, native PDF writer

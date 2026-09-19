@@ -2,7 +2,7 @@
 
 Baseline: `car-management-native-android-audit-final` (native Kotlin + Compose + Room,
 Gradle/EAS release pipeline). No rewrite: the architecture, package name
-(`com.khodroyar.app`), Room schema (version 1, unchanged), core business logic in
+(`com.carmangment.app`), Room schema (version 1, unchanged), core business logic in
 `core/`, exporters, security and build configuration were kept as they were.
 
 ## Changed

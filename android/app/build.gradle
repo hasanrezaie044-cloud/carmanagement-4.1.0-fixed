@@ -11,14 +11,14 @@ if (easBuildGradle.exists()) {
 }
 
 android {
-    namespace 'com.khodroyar.app'
+    namespace 'com.carmangment.app'
     compileSdk 35
 
     defaultConfig {
         applicationId 'com.khodroyar.app'
         minSdk 24
         targetSdk 35
-        versionCode 23
+        versionCode 22
         versionName '4.1.0'
         resourceConfigurations += ['fa', 'en']
         vectorDrawables.useSupportLibrary = true

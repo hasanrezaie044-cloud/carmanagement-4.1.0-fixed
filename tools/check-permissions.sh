@@ -32,6 +32,11 @@ BANNED=(
   "android.permission.WRITE_EXTERNAL_STORAGE"
   "android.permission.QUERY_ALL_PACKAGES"
   "android.permission.INTERNET"
+  "android.permission.USE_FINGERPRINT"
+  "android.permission.ACCESS_NETWORK_STATE"
+  "android.permission.FOREGROUND_SERVICE"
+  "android.permission.RECEIVE_BOOT_COMPLETED"
+  "android.permission.WAKE_LOCK"
 )
 
 AAPT=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/build-tools" -name aapt2 2>/dev/null | sort -r | head -1 || true)
