@@ -152,7 +152,7 @@ class SettingsStore private constructor(context: Context) {
         remindInstallments: Boolean?, remindOilChange: Boolean?, remindBodyInsurance: Boolean?,
         remindVehicleInsurance: Boolean?, remindInspection: Boolean?, remindBackup: Boolean?,
         bodyInsuranceDate: String?, vehicleInsuranceDate: String?, inspectionDate: String?,
-        backupIntervalDays: Int?,
+        backupIntervalDays: Int?, monthlyIncomeGoal: Double?,
     ) = update { c ->
         c.copy(
             themeMode = themeMode ?: c.themeMode,
