@@ -24,23 +24,32 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    // Release signing is loaded ONLY when the release variant is actually requested.
+    // Debug/unit-test tasks must never require the production signing secrets.
+    def releaseStorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+    def releaseStorePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+    def releaseKeyAlias = System.getenv("ANDROID_KEY_ALIAS")
+    def releaseKeyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+
+    def releaseSigningAvailable = [
+        releaseStorePath,
+        releaseStorePassword,
+        releaseKeyAlias,
+        releaseKeyPassword
+    ].every { it != null && !it.trim().isEmpty() }
+
+    def releaseTaskRequested = gradle.startParameter.taskNames.any {
+        it.toLowerCase().contains("release")
+    }
+
     signingConfigs {
-        release {
-            // Release signing is intentionally strict: GitHub Actions must supply the
-            // existing Bazaar-compatible keystore. Never generate a new/fallback key.
-            def storePath = System.getenv("ANDROID_KEYSTORE_PATH")
-            def storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            def keyAlias = System.getenv("ANDROID_KEY_ALIAS")
-            def keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
-
-            if ([storePath, storePassword, keyAlias, keyPassword].any { it == null || it.trim().isEmpty() }) {
-                throw new GradleException("Release signing configuration is missing. Set ANDROID_KEYSTORE_PATH, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS and ANDROID_KEY_PASSWORD.")
+        if (releaseSigningAvailable) {
+            release {
+                storeFile file(releaseStorePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
             }
-
-            storeFile file(storePath)
-            storePassword storePassword
-            keyAlias keyAlias
-            keyPassword keyPassword
         }
     }
 
@@ -49,8 +58,18 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+
+            if (releaseSigningAvailable) {
+                signingConfig signingConfigs.release
+            } else if (releaseTaskRequested) {
+                throw new GradleException(
+                    "Release signing configuration is missing. " +
+                    "GitHub Actions must provide the existing Bazaar-compatible keystore through " +
+                    "ANDROID_KEYSTORE_PATH, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS and ANDROID_KEY_PASSWORD."
+                )
+            }
         }
+
         debug {
             minifyEnabled false
         }
